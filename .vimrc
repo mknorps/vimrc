@@ -110,7 +110,7 @@ set visualbell
 set t_vb=
  
 " Enable use of the mouse for all modes
-set mouse=a
+" set mouse=a
  
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
@@ -157,3 +157,16 @@ map Y y$
 nnoremap <C-L> :nohl<CR><C-L>
  
 "------------------------------------------------------------
+
+"------------------------------------------------------------
+" Autocommands {{{1
+
+" for Python:
+
+autocmd bufnewfile *.py so /home/gemusia/kody/Python/python_header.txt
+autocmd bufnewfile *.py exe "1," . 9 . "g/File name:.*/s//File name: " .expand("%:t")
+autocmd bufnewfile *.py exe "1," . 9 . "g/Creation date:.*/s//Creation date: " .strftime("%d-%m-%Y")
+autocmd bufnewfile *.py exe "1," . 9 . "g/Created by:.*/s//Created by: " .$USER
+autocmd Bufwritepre,filewritepre *.py execute "normal ma"
+autocmd Bufwritepre,filewritepre *.py exe "1," . 9 . "g/Last modified:.*/s//Last modified: " .strftime("%c")
+autocmd bufwritepost,filewritepost *.py execute "normal `a"
