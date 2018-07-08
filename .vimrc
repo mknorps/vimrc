@@ -159,14 +159,18 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 "------------------------------------------------------------
-" Autocommands {{{1
 
-" for Python:
 
-autocmd bufnewfile *.py so /home/gemusia/kody/Python/python_header.txt
-autocmd bufnewfile *.py exe "1," . 9 . "g/File name:.*/s//File name: " .expand("%:t")
-autocmd bufnewfile *.py exe "1," . 9 . "g/Creation date:.*/s//Creation date: " .strftime("%d-%m-%Y")
-autocmd bufnewfile *.py exe "1," . 9 . "g/Created by:.*/s//Created by: " .$USER
-autocmd Bufwritepre,filewritepre *.py execute "normal ma"
-autocmd Bufwritepre,filewritepre *.py exe "1," . 9 . "g/Last modified:.*/s//Last modified: " .strftime("%c")
-autocmd bufwritepost,filewritepost *.py execute "normal `a"
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" PEP8 checks
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
+" autocompletion
+Plug 'davidhalter/jedi-vim'
+" powerline
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+call plug#end()
